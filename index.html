@@ -15,25 +15,21 @@
                 font-style: normal;
             }
             body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                height: 100%;
                 color: darkblue;
-                display: table;
                 font-weight: 100;
                 font-family: 'distant_galaxyregular';
             }
-
+            html, body, .container {
+                height: 100%;
+            }
             .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .content {
                 text-align: center;
-                display: inline-block;
             }
 
             .title {

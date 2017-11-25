@@ -23,7 +23,7 @@ phases:
   #      - tar -xf _site.tar
   post_build:
     commands:
-       - aws s3 sync _site s3://www.brewmance.uk --delete
+       - aws s3 sync --exclude ".git*" --exclude buildspec.yml . s3://www.brewmance.uk --delete
 # artifacts:
   # files:
     # - '**/*'

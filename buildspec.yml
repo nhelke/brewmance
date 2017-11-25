@@ -17,13 +17,13 @@ phases:
     #commands:
       # - command
       # - command
-  # build:
-    # commands:
-      #  - bundle exec jekyll build
+  build:
+    commands:
+       - git archive --format=tar "--prefix=_site/" "$CODEBUILD_RESOLVED_SOURCE_VERSION" | tar -x
       # - command
   post_build:
     commands:
-       - aws s3 sync . s3://www.brewmance.uk --delete
+       - aws s3 sync _site s3://www.brewmance.uk --delete
 # artifacts:
   # files:
     # - '**/*'

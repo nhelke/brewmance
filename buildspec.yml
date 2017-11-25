@@ -1,0 +1,32 @@
+version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+
+phases:
+  # install:
+    # commands:
+      #  - bundle install
+      # - command
+  #pre_build:
+    #commands:
+      # - command
+      # - command
+  # build:
+    # commands:
+      #  - bundle exec jekyll build
+      # - command
+  post_build:
+    commands:
+       - aws s3 sync . s3://www.brewmance.uk --delete
+# artifacts:
+  # files:
+    # - '**/*'
+    # - location
+  #discard-paths: yes
+  # base-directory: out

@@ -1,0 +1,1 @@
+exclude: ["Gemfile", "Gemfile.lock", "vendor", "bitbucket-pipelines.yml", "deploy_redirect.sh", "deploy_site.sh"]

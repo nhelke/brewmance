@@ -9,7 +9,7 @@ while getopts "r:" arg; do
 done
 shift $((OPTIND-1))
 
-site=$(mktemp -dt deploy_redirect)
+site=$(mktemp -dt deploy_redirect_XXXXXX)
 trap 'rm -r "$site"' EXIT
 
 cat > "$site/.htaccess" <<-EOF

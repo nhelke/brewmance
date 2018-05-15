@@ -1,0 +1,36 @@
+image: ruby:2.3.3
+
+pipelines:
+  default:
+    - step: &build-step
+        name: Build site
+        caches:
+          - bundler
+        script:
+          - bundle install --deployment
+          - bundle exec jekyll build
+        artifacts:
+          - _site/**
+  branches:
+    master:
+      - step: *build-step
+      - step:
+          name: Deploy to staging.brewmance.uk
+          image: atlassian/default-image:2
+          deployment: staging
+          script:
+            - 'printf "User-agent: *\nDisallow: /\n" > "_site/robots.txt"'
+            - ./deploy_site.sh -s _site/ -r "$DEPLOY_USERNAME@$DEPLOY_HOST:staging.brewmance.uk/"
+      - step:
+          name: Deploy to www.brewmance.uk
+          image: atlassian/default-image:2
+          deployment: production
+          trigger: manual
+          script:
+            - ./deploy_site.sh -s _site/ "$DEPLOY_USERNAME@$DEPLOY_HOST:www.brewmance.uk/"
+            - ./deploy_redirect.sh -r www.brewmance.uk "$DEPLOY_USERNAME@$DEPLOY_HOST:brewmance.uk/"
+
+definitions:
+  caches:
+    bundler: ./vendor
+

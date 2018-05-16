@@ -14,6 +14,7 @@ trap 'rm -r "$site"' EXIT
 
 cat > "$site/.htaccess" <<-EOF
 RewriteEngine on 
+RewriteCond %{REQUEST_URI} !^/\.well-known/.*
 RewriteRule ^(.*)\$ https://$redirect/\$1 [R=301,L]
 EOF
 

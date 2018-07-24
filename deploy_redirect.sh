@@ -9,8 +9,11 @@ while getopts "r:" arg; do
 done
 shift $((OPTIND-1))
 
-site=$(mktemp -dt deploy_redirect_XXXXXX)
-trap 'rm -r "$site"' EXIT
+tmp=$(mktemp -dt deploy_redirect_XXXXXX)
+trap 'rm -r "$tmp"' EXIT
+
+site=${tmp}/www
+mkdir "$site"
 
 cat > "$site/.htaccess" <<-EOF
 RewriteEngine on 
